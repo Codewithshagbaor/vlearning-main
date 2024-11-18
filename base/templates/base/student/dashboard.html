@@ -1,0 +1,92 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<div class="container mx-auto p-6 space-y-8">
+  
+  <!-- Courses Section -->
+  <div>
+    <h2 class="text-2xl font-semibold text-blue-600 mb-4">Courses</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {% for course, materials in course_materials %}
+      <div class="bg-white rounded-lg shadow-md overflow-hidden">
+        <img src="{{ course.course_photo.url }}" alt="Course image" class="h-48 w-full object-cover">
+        <div class="p-4">
+          <h3 class="text-lg font-bold text-gray-800 mb-2">{{ course.course_code }}: {{ course.name }}</h3>
+          <p class="text-sm text-gray-600 mb-4">Level: {{ course.level }}</p>
+          <a href="{% url 'study-page' course.id %}?unit=1" target="_blank" class="inline-block bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Study</a>
+          {% if materials %}
+          <a href="{{ materials.0.file.url }}" target="_blank" class="ml-4 inline-block text-blue-500 hover:text-blue-700">Download Material</a>
+          {% else %}
+          <p class="mt-2 text-gray-500">No Material Available</p>
+          {% endif %}
+        </div>
+      </div>
+      {% empty %}
+      <p class="text-gray-500">No courses found.</p>
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- Tests Section -->
+  <div>
+    <h2 class="text-2xl font-semibold text-blue-600 mb-4">Tests</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {% for course, tests in course_tests %}
+      <div class="bg-white rounded-lg shadow-md overflow-hidden p-4">
+        <div class="flex items-center mb-2">
+          <img src="{{ course.course_photo.url }}" alt="Course image" class="w-16 h-16 rounded-md object-cover">
+          <div class="ml-4">
+            <h3 class="text-lg font-bold text-gray-800">{{ course.name|truncatechars:20 }}</h3>
+          </div>
+        </div>
+        <div class="space-y-2">
+          {% for test in tests %}
+          <a href="{% url 'test_detail' course_id=course.id pk=test.id %}" target="_blank" class="block text-blue-500 hover:underline">{{ test.name|truncatechars:10 }}</a>
+          {% empty %}
+          <p class="text-gray-500">No tests found.</p>
+          {% endfor %}
+        </div>
+      </div>
+      {% empty %}
+      <p class="text-gray-500">No courses found.</p>
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- Complaint Section -->
+  {% comment %} <div class="bg-white rounded-lg shadow-md p-6">
+    <h2 class="text-2xl font-semibold text-blue-600 mb-4">Lay a Complaint</h2>
+    <form id="complaint-form" action="" method="post" class="space-y-4">
+      {% csrf_token %}
+      <div>
+        <label for="subject" class="block text-gray-700">Subject:</label>
+        <input type="text" id="subject" name="subject" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+      </div>
+      <div>
+        <label for="message" class="block text-gray-700">Message:</label>
+        <textarea id="message" name="message" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" rows="4" required></textarea>
+      </div>
+      <div>
+        <label for="course" class="block text-gray-700">Course:</label>
+        <select name="course" id="course" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+          {% for c in courses %}
+          <option value="{{ c }}">{{ c }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="flex space-x-4">
+        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Submit</button>
+        <button type="button" class="bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600" onclick="closeForm()">Close</button>
+      </div>
+    </form>
+  </div> {% endcomment %}
+
+</div>
+
+<script>
+  function closeForm() {
+    document.getElementById("complaint-form").reset();
+  }
+</script>
+{% endblock %}

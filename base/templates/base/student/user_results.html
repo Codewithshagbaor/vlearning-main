@@ -1,0 +1,36 @@
+{% extends 'base/base.html' %}
+{% block title %} Result {% endblock %}
+{% block content %}
+
+<div class="container mx-auto px-6 py-8">
+  <table class="w-full text-left border-collapse mt-6">
+    <thead>
+      <tr class="bg-blue-700 text-white">
+        <th class="p-3 border-b">Quiz Name</th>
+        <th class="p-3 border-b">Score</th>
+        <th class="p-3 border-b">Course Name</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for result in results %}
+        <tr class="hover:bg-gray-100">
+          <td class="p-3 border-b">{{ result.quiz.name }}</td>
+          <td class="p-3 border-b">{{ result.score }}</td>
+          <td class="p-3 border-b">{{ result.course.name }}</td>
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="3" class="p-3 text-center text-gray-500">No results available.</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <div class="flex justify-center mt-8">
+    <button class="bg-green-700 text-white px-6 py-2 rounded-md hover:bg-green-800 transition duration-300">
+      View More Results
+    </button>
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,63 @@
+{% extends "base/base.html" %}
+{% block title %}Edit Course{% endblock %}
+{% block content %}
+<div class="container mx-auto p-6">
+    <h2 class="text-3xl font-bold text-gray-800 mb-8">Edit Course: {{ course.name }}</h2>
+    <form method="post" class="space-y-6 bg-white p-8 rounded-lg shadow-lg">
+        {% csrf_token %}
+        <!-- Course Name -->
+        <div class="mb-4">
+            <label for="id_name" class="block text-lg font-medium text-gray-700">Course Name</label>
+            <input type="text" id="id_name" name="name" value="{{ course.name }}" class="mt-2 p-3 w-full border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+        </div>
+
+        <!-- Course Description -->
+        <div class="mb-4">
+            <label for="id_description" class="block text-lg font-medium text-gray-700">Description</label>
+            <textarea id="id_description" name="description" class="mt-2 p-3 w-full border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>{{ course.description }}</textarea>
+        </div>
+
+        <!-- Course Code -->
+        <div class="mb-4">
+            <label for="course_code" class="block text-lg font-medium text-gray-700">Course Code</label>
+            <input type="text" id="course_code" name="course_code" value="{{ course.course_code }}" class="mt-2 p-3 w-full border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+        </div>
+
+
+        <!-- Course Cover -->
+        <div class="mb-4">
+            <label for="course_cover" class="block text-lg font-medium text-gray-700">Course Cover</label>
+            <input type="file" id="course_cover" name="course_cover" class="mt-2 p-3 w-full border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <div class="mini-box mt-4">
+                <img src="{{ course.course_photo.url }}" alt="Small Image" class="small-image cursor-pointer rounded-lg shadow-md" id="small-image">
+            </div>
+        </div>
+
+        <!-- Save Button -->
+        <button type="submit" class="w-full py-3 px-4 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition duration-300">Save</button>
+    </form>
+
+    <!-- Overlay for Image -->
+    <div class="overlay fixed inset-0 bg-black bg-opacity-70 flex justify-center items-center hidden" id="overlay">
+        <div class="relative">
+            <span class="close-btn absolute top-4 right-4 text-4xl font-bold text-white cursor-pointer" id="close-btn">&times;</span>
+            <img src="{{ course.course_photo.url }}" alt="Large Image" class="large-image max-w-full max-h-[80vh] object-contain rounded-lg shadow-lg">
+        </div>
+    </div>
+</div>
+
+<script>
+    // Image Modal Functionality
+    const smallImage = document.getElementById('small-image');
+    const overlay = document.getElementById('overlay');
+    const closeBtn = document.getElementById('close-btn');
+
+    smallImage.addEventListener('click', function() {
+        overlay.classList.remove('hidden');
+    });
+
+    closeBtn.addEventListener('click', function() {
+        overlay.classList.add('hidden');
+    });
+</script>
+{% endblock %}

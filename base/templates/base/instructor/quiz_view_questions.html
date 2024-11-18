@@ -1,0 +1,59 @@
+{% extends 'base/base.html' %}
+
+{% block title %}View Test{% endblock %}
+
+{% block content %}
+{% load static %}
+
+<!-- Page Header -->
+<div class="bg-blue-600 text-white p-6 rounded-lg shadow-lg mb-8">
+    <h1 class="text-3xl font-bold">{{ course.name }} - {{ obj.name }}</h1>
+    <p class="text-xl mt-2">Manage and review the test questions and answers</p>
+</div>
+
+<!-- Test Content -->
+<div class="container mx-auto px-6">
+    <!-- Test Questions Section -->
+    <section class="space-y-8">
+        <h2 class="text-2xl font-semibold text-gray-800 mb-4">Test Questions</h2>
+
+        <!-- Loop through questions -->
+        {% for question in data %}
+        <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-2xl transition-all">
+            <div class="flex justify-between items-center">
+                <!-- Question Title -->
+                <a href="{% url 'edit_question' quiz_id=obj.id question_id=question.link %}" class="text-xl font-semibold text-blue-600 hover:text-blue-800 transition duration-300">
+                    {{ question.question }}
+                </a>
+                <span class="bg-blue-100 text-blue-600 px-3 py-1 text-sm rounded-full">{{ question.answers|length }} Answers</span>
+            </div>
+            
+            <!-- Answers Section -->
+            <div class="mt-4 space-y-2">
+                <span class="text-sm text-gray-600">Answers:</span>
+                <div class="ml-4 space-y-1">
+                    {% for answer in question.answers %}
+                    <p class="text-gray-800">{{ answer }}</p>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Correct Answer Section -->
+            {% if question.correct_answer %}
+            <div class="mt-4 bg-blue-50 p-4 rounded-lg">
+                <span class="text-sm text-gray-600">Correct answer:</span>
+                <p class="font-semibold text-blue-600">{{ question.correct_answer }}</p>
+            </div>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </section>
+
+    <!-- Add Question Button -->
+    <div class="mt-8 flex justify-center">
+        <a href="{% url 'create_question' obj.id %}" class="px-6 py-3 bg-blue-600 text-white text-lg font-semibold rounded-lg shadow-md hover:bg-blue-700 hover:shadow-lg transition duration-300">
+            Add Questions
+        </a>
+    </div>
+</div>
+{% endblock %}

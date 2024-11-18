@@ -1,0 +1,35 @@
+{% extends "base/base.html" %}
+
+{% block title %}Student Lists{% endblock %}
+
+{% block content %}
+<div class="container mx-auto p-6">
+  <h1 class="text-3xl font-semibold mb-6">Students</h1>
+  <table class="min-w-full table-auto bg-white shadow-lg rounded-lg overflow-hidden">
+    <thead>
+      <tr class="bg-blue-600 text-white">
+        <th class="px-6 py-4 text-left">Username</th>
+        <th class="px-6 py-4 text-left">Name</th>
+        <th class="px-6 py-4 text-left">Courses</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for s in student %}
+        <tr class="hover:bg-gray-100">
+          <td class="px-6 py-4">{{ s.user.username }}</td>
+          <td class="px-6 py-4">{{ s.first_name }} {{ s.last_name }}</td>
+          <td class="px-6 py-4">
+            {% for course in s.courses.all %}
+              <div>{{ course }}</div>
+            {% endfor %}
+          </td>
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="3" class="px-6 py-4 text-center text-gray-500">No student courses yet.</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

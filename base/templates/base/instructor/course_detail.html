@@ -1,0 +1,540 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block title %}{{ course.name }}{% endblock %}
+{% block content %}
+<style>
+  /* Set a max width for the page content */
+
+
+/* Add margin and padding to the page content */
+.container, .card {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+}
+
+/* Add background color to the page header */
+.mb-4 {
+  background-color: royalblue;
+  color: #fff;
+  padding: 1rem;
+  border-radius: 0.5rem;
+}
+
+.mb-3 {
+  background-color: royalblue;
+  color: #fff;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  font-size: 18px;
+}
+/* Style the unit titles */
+.card-header {
+  color: #fff;
+  font-weight: bold;
+  font-size: 1.2rem;
+  padding: 0.5rem;
+  border-bottom: 1px solid #ddd;
+}
+
+/* Style the material list */
+a{
+  color: royalblue;
+  text-decoration: none;
+}
+
+.a-links{
+  color: #fff;
+  text-decoration: none;
+}
+.button-pri{
+  background-color: royalblue;
+  color: #fff;
+  text-decoration-color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.button-pr2{
+  background-color: royalblue;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+</style>
+<style>
+  .cardr {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  border: 1px solid rgba(243, 244, 246, );
+  border-radius: 0.5rem;
+  padding: 1rem;
+  background-color: #fff;
+}
+
+.headerr {
+  display: flex;
+  justify-content: space-between;
+  grid-gap: 1rem;
+  gap: 1rem;
+}
+
+.titler {
+  font-size: 1.125rem;
+  line-height: 1.25rem;
+  font-weight: 700;
+  color: rgba(17, 24, 39, 1);
+  text-decoration: none;
+}
+
+.titler:hover {
+  text-decoration: underline royalblue;
+}
+
+.name {
+  margin-top: 0.25rem;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  font-weight: 500;
+  color: rgba(75, 85, 99, 1);
+}
+
+.image {
+  display: block;
+  flex-shrink: 0;
+  height: 3rem;
+  width: 3rem;
+  border-radius: 0.5rem;
+  object-fit: cover;
+  background-color: royalblue;
+}
+
+.description {
+  margin-top: 1rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: rgba(107, 114, 128, 1);
+}
+
+.post-info {
+  margin-top: 1.5rem;
+  display: flex;
+  grid-gap: 1rem;
+  gap: 1rem;
+}
+
+.cr {
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.dt {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 600;
+  color: rgba(75, 85, 99, 1);
+}
+
+.dd {
+  font-size: 0.75rem;
+  line-height: 1rem;
+  color: rgba(107, 114, 128,1);
+}
+</style>
+<style>
+  .modal {
+  display: none;
+  position: fixed;
+  z-index: 999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.modal-content {
+  background-color: white;
+  margin: 15% auto;
+  padding: 20px;
+  width: 300px;
+  text-align: center;
+  border-radius: 4px;
+  position: relative;
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.btn {
+  background-color: royalblue;
+  border: none;
+  color: white;
+  padding: 12px 24px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin-top: 20px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.btn:hover {
+  background-color: lightblue;
+}
+
+</style>
+<style>
+  /* In this section you start by assigning a shape to the letter and an assigned size. */
+.card {
+  --rounded: 20px;
+  --size: 270px;
+  width: var(--size);
+  height: calc(var(--size) - 10px);
+  border-radius: var(--rounded);
+  background: #fff;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+/* With the before property assigns the gradient that will be used as background for the chart. */
+.card::before {
+  --size: 100%;
+  --blur: 20px;
+  content: "";
+  position: absolute;
+  width: var(--size);
+  height: var(--size);
+  filter: blur(var(--blur));
+  background-color: #faff99;
+  background-image: radial-gradient(at 33% 82%, hsla(254,71%,69%,1) 0px, transparent 50%),
+  radial-gradient(at 28% 4%, hsla(289,96%,63%,1) 0px, transparent 50%),
+  radial-gradient(at 69% 49%, hsla(309,91%,71%,1) 0px, transparent 50%),
+  radial-gradient(at 94% 14%, hsla(232,66%,62%,1) 0px, transparent 50%),
+  radial-gradient(at 19% 93%, hsla(51,98%,74%,1) 0px, transparent 50%),
+  radial-gradient(at 15% 80%, hsla(194,87%,63%,1) 0px, transparent 50%),
+  radial-gradient(at 56% 52%, hsla(109,71%,61%,1) 0px, transparent 50%);
+}
+
+/* Cover the chart with a light white tone, this helps the gradient colors to be less aggressive. */
+.card::after {
+  --size: 100%;
+  content: "";
+  position: absolute;
+  width: var(--size);
+  height: var(--size);
+  background: rgba(255, 255, 255, 0.5);
+}
+
+/* 
+In this section you define where the video cover will be displayed.
+Modify the background-image with the address of the cover to use. */
+.card__view {
+  position: absolute;
+  height: 55%;
+  left: 0;
+  top: 0;
+  right: 0;
+  margin: auto;
+  z-index: 1;
+  background-image: linear-gradient(to right bottom, #fff, #e2e2e2);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+/* When hovering over the element you can see the video preview. */
+/* Place in the HTML an "iframe" tag with the address of the youtube video to show as preview. 
+   The iframe tag must be a child of the div with the class "card__view".
+   Also place a class with name "preview__video". */
+.card:hover .preview__video {
+  opacity: 100;
+}
+
+.preview__video {
+  transition: opacity 300ms;
+  opacity: 0;
+}
+
+
+/* In this section you define the size and position of the section that will contain the video content. */
+.card__content {
+  position: absolute;
+  z-index: 2;
+  width: 100%;
+  height: 40%;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding-left: 9px;
+  padding-right: 9px;
+  color: #000;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.channel__video__name {
+  font-size: 0.8em;
+  margin-bottom: 10px;
+  max-height: 50%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: bold;
+  color: #000;
+}
+
+.channel__data {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+/* In this section you assign the image of the channel that owns the video, modify the parameter "background-image" by the address of the channel cover. */
+.channel__img {
+  --size-channel: 35px;
+  --rounded: 50%;
+  --duration: 300ms;
+  min-width: var(--size-channel);
+  min-height: var(--size-channel);
+  border-radius: var(--rounded);
+  transition: transform var(--duration);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: #99cfff;
+  background-image: radial-gradient(at 6% 14%, hsla(234,90%,72%,1) 0px, transparent 50%),
+  radial-gradient(at 9% 73%, hsla(298,79%,64%,1) 0px, transparent 50%),
+  radial-gradient(at 50% 38%, hsla(196,72%,75%,1) 0px, transparent 50%),
+  radial-gradient(at 61% 82%, hsla(288,92%,79%,1) 0px, transparent 50%),
+  radial-gradient(at 91% 67%, hsla(170,86%,66%,1) 0px, transparent 50%),
+  radial-gradient(at 83% 29%, hsla(289,73%,63%,1) 0px, transparent 50%),
+  radial-gradient(at 93% 34%, hsla(191,88%,75%,1) 0px, transparent 50%);
+}
+
+.channel__img:hover {
+  transform: scale(1.08);
+}
+
+.channel__data__text {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 100%;
+}
+
+.channel__subdata {
+  display: flex;
+  gap: 10px;
+}
+
+.channel__name {
+  font-size: 0.8em;
+  transition: color 400ms;
+}
+
+.channel__views, .channel__date {
+  font-size: 0.6em;
+}
+
+.card__view__data {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 8px;
+  box-sizing: border-box;
+  pointer-events: none;
+}
+
+.card__lenght, .card__play__icon, .card__view__preview {
+  background: rgba(0, 0, 0, 0.5);
+  padding: 5px;
+  border-radius: 6px;
+  font-size: 0.6em;
+  font-weight: bold;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.card__play__icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 30px;
+}
+
+.card__view__preview {
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 900ms, transform 900ms;
+}
+
+.card:hover .card__view__preview {
+  opacity: 100;
+  transform: translateY(0px);
+}
+
+/* List of other colors you can use */
+.card:nth-child(2n)::before {
+  background-color: #ffd399;
+  background-image: radial-gradient(at 15% 65%, hsla(249,84%,60%,1) 0px, transparent 50%),
+ radial-gradient(at 38% 24%, hsla(197,80%,66%,1) 0px, transparent 50%),
+ radial-gradient(at 65% 93%, hsla(228,83%,60%,1) 0px, transparent 50%),
+ radial-gradient(at 16% 58%, hsla(314,83%,72%,1) 0px, transparent 50%),
+ radial-gradient(at 77% 57%, hsla(298,90%,78%,1) 0px, transparent 50%),
+ radial-gradient(at 76% 95%, hsla(178,64%,76%,1) 0px, transparent 50%),
+ radial-gradient(at 15% 61%, hsla(248,75%,64%,1) 0px, transparent 50%);
+}
+
+.card:nth-child(3n)::before {
+  background-color: #99b3ff;
+  background-image: radial-gradient(at 93% 72%, hsla(293,71%,70%,1) 0px, transparent 50%),
+  radial-gradient(at 28% 37%, hsla(252,81%,71%,1) 0px, transparent 50%),
+  radial-gradient(at 25% 59%, hsla(158,67%,62%,1) 0px, transparent 50%),
+  radial-gradient(at 48% 16%, hsla(197,69%,63%,1) 0px, transparent 50%),
+  radial-gradient(at 70% 56%, hsla(171,69%,70%,1) 0px, transparent 50%),
+  radial-gradient(at 7% 33%, hsla(65,65%,79%,1) 0px, transparent 50%),
+  radial-gradient(at 89% 22%, hsla(286,64%,72%,1) 0px, transparent 50%);
+}
+
+.card:nth-child(4n)::before {
+  background-color: #e2ff99;
+  background-image: radial-gradient(at 22% 80%, hsla(265,77%,67%,1) 0px, transparent 50%),
+  radial-gradient(at 91% 77%, hsla(292,60%,78%,1) 0px, transparent 50%),
+  radial-gradient(at 66% 7%, hsla(46,95%,76%,1) 0px, transparent 50%),
+  radial-gradient(at 16% 32%, hsla(275,90%,75%,1) 0px, transparent 50%),
+  radial-gradient(at 26% 23%, hsla(283,60%,69%,1) 0px, transparent 50%),
+  radial-gradient(at 2% 64%, hsla(208,62%,62%,1) 0px, transparent 50%),
+  radial-gradient(at 62% 77%, hsla(112,88%,75%,1) 0px, transparent 50%);
+}
+
+.card:nth-child(5n)::before {
+  background-color: #99d1ff;
+  background-image: radial-gradient(at 21% 94%, hsla(270,95%,76%,1) 0px, transparent 50%),
+  radial-gradient(at 56% 5%, hsla(252,65%,79%,1) 0px, transparent 50%),
+  radial-gradient(at 67% 94%, hsla(194,81%,67%,1) 0px, transparent 50%),
+  radial-gradient(at 15% 72%, hsla(304,97%,77%,1) 0px, transparent 50%),
+  radial-gradient(at 63% 56%, hsla(38,98%,63%,1) 0px, transparent 50%),
+  radial-gradient(at 41% 67%, hsla(321,61%,77%,1) 0px, transparent 50%),
+  radial-gradient(at 68% 68%, hsla(263,67%,69%,1) 0px, transparent 50%);
+}
+</style>
+  <div class="cardr">
+    <h1 class="headerr">{{ course.name }} Materials</h1>
+    <p class="description">{{ course.description }}</p>
+    <hr>
+    {% if modules %}
+      {% for module in modules %}
+      <div class="cardr">
+        <div class="headerr">
+          <div>
+            <a class="titler" href="">
+              {{ module.name }}
+            </a>
+          </div>
+        </div>
+          <p class="description">
+            {{ module.description }}
+          </p>
+        <dl class="post-info">
+          <div class="cr">
+            <dt class="dt"><a href="{% url 'edit_module' module_id=module.id %}">Edit</a></dt>
+          </div>
+          <div class="cr">
+            <dt class="dt"><a href="#" onclick="showDeleteConfirmation('{{ module.id }}')">Delete</a></dt>
+
+            <div id="deleteConfirmationModal" class="modal">
+              <div class="modal-content">
+                <span class="close" onclick="closeDeleteConfirmation()">&times;</span>
+                <h3>Delete Confirmation</h3>
+                <p>Deleting this module will permanently remove all associated content, including lessons, quizzes, and student progress. Please note that any student enrollments and payment information will remain intact.</p>
+                <form id="deleteModuleForm" action="{% url 'delete_module' module_id=module.id %}" method="POST">
+                  {% csrf_token %}
+                  <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+              </div>
+            </div>
+          </div>
+          {% if module.units.all %}
+          {% for unit in module.units.all %}
+          <div class="card">
+            <div class="card__view">
+              <div class="card__view__data">
+                <p class="card__view__preview">Preview</p>
+                <a href="{% url 'edit_unit' unit_id=unit.id %}"><p class="card__play__icon">Edit</p></a>
+              </div>
+            </div>
+            <div class="card__content">
+              <p class="channel__video__name">{{ unit.name }}</p>
+              <div class="channel__data">
+                <div class="channel__data__text">
+                  
+                  <div class="channel__subdata">
+                    {% if unit.materials.all %}
+                    {% for material in unit.materials.all %}
+                    <p class="channel__views"><a class="a-links" href="{% url 'edit_material' material.id %}">{{ material.name }} (Material)</a></p>
+                    {% endfor %}
+                    {% else %}
+                    <li>No materials found. <a style="color: #000;" href="{% url 'create_material' unit_id=unit.id %}">Add materials</a></li>
+                  {% endif %}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+          <button class="button-pri"><a class="a-links" href="{% url 'create_unit' module_id=module.id %}">Add Unit</a></button> 
+        {% else %}
+          <p>No units found for this module. <a href="{% url 'create_unit' module_id=module.id %}">Add units</a></p>
+        {% endif %}
+        </dl>
+      </div>
+      {% endfor %}
+      <button class="button-pr2"><a class="a-links" href="{% url 'create_module' course_id=course.id %}">Add Module</a></button>
+    {% else %}
+      <p>No modules found for this course. <a href="{% url 'create_module' course_id=course.id %}">Add modules</a></p>
+    {% endif %}
+    <div class="container mt-6">
+      <h1 class="headerr">Test</h1>
+      {% if testlist %}
+      {% for test in testlist %}
+      <p><a href="{% url 'quiz_view_admin' course_id=course.id pk=test.pk %}">View ({{ test.name }})</a></p>
+      {% endfor %}
+      <a href="{% url 'create_test' course.id %}">Add Test</a>
+      {% else %}
+      <a href="{% url 'create_test' course.id %}">Create Test</a>
+      {% endif %}
+    </div>
+  </div>
+  <script>
+    function showDeleteConfirmation(moduleId) {
+    var deleteConfirmationModal = document.getElementById('deleteConfirmationModal');
+    deleteConfirmationModal.style.display = 'block';
+  
+    var deleteModuleForm = document.getElementById('deleteModuleForm');
+    
+    deleteModuleForm.action = deleteModuleForm.action.replace('module_id', moduleId);
+  }
+  
+  function closeDeleteConfirmation() {
+    var deleteConfirmationModal = document.getElementById('deleteConfirmationModal');
+    deleteConfirmationModal.style.display = 'none';
+  }
+  
+  </script>
+{% endblock %}    

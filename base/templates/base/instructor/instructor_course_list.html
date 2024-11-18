@@ -1,0 +1,65 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<div class="px-8 py-6">
+    <!-- Header -->
+    <div class="flex items-center justify-between mb-6">
+        <h1 class="text-3xl font-bold text-blue-700">My Courses</h1>
+        <a href="{% url 'create_course' %}" class="px-4 py-2 bg-blue-600 text-white font-semibold rounded hover:bg-blue-700">
+            Add Course
+        </a>
+    </div>
+
+    <!-- Table -->
+    <div class="overflow-x-auto">
+        <table class="min-w-full bg-white border border-gray-200 rounded-lg shadow">
+            <thead>
+                <tr class="bg-blue-600 text-white">
+                    <th class="px-6 py-3 text-left text-sm font-semibold">Name</th>
+                    <th class="px-6 py-3 text-left text-sm font-semibold">Description</th>
+                    <th class="px-6 py-3 text-left text-sm font-semibold">View</th>
+                    <th class="px-6 py-3 text-left text-sm font-semibold">Manage Student</th>
+                    <th class="px-6 py-3 text-left text-sm font-semibold">Edit</th>
+                    <th class="px-6 py-3 text-left text-sm font-semibold">Delete</th>
+                </tr>
+            </thead>
+            <tbody class="text-gray-700">
+                {% for course in courses %}
+                    <tr class="border-b border-gray-200 hover:bg-gray-100">
+                        <td class="px-6 py-4">{{ course.name }}</td>
+                        <td class="px-6 py-4">{{ course.description }}</td>
+                        <td class="px-6 py-4">
+                            <a href="{% url 'view_course' course_id=course.id %}" class="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600">
+                                View
+                            </a>
+                        </td>
+                        <td class="px-6 py-4">
+                            <a href="{% url 'manage_students' course_id=course.id %}" class="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600">
+                                Manage
+                            </a>
+                        </td>
+                        <td class="px-6 py-4">
+                            <a href="{% url 'edit_course' course_id=course.id %}" class="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600">
+                                Edit
+                            </a>
+                        </td>
+                        <td class="px-6 py-4">
+                            <a href="{% url 'delete_course' course_id=course.id %}" class="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600">
+                                Delete
+                            </a>
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="6" class="px-6 py-4 text-center text-gray-500">
+                            You have not created any courses yet.
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}

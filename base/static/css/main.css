@@ -1,0 +1,33 @@
+.htmx-indicator {
+    display: none;
+}
+.htmx-request .htmx-indicator {
+    display: inline;
+}
+.htmx-request.htmx-indicator {
+    display: inline;
+}
+.that_message {
+    display: inline;
+}
+.htmx-request .that_message {
+    display: none;
+}
+#that_btn:disabled {
+    opacity: 0.9;
+    cursor: not-allowed;
+}
+@keyframes slideInUp {
+    from {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+#dismiss-toast {
+    animation: slideInUp 0.3s ease-out;
+}

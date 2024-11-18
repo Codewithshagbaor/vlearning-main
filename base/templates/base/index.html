@@ -1,0 +1,45 @@
+{% extends 'base/_base.html' %}
+{% load static %}
+{% block content %}
+<body class="bg-gray-100">
+    <!-- Hero Section -->
+    <section class="text-center py-16 bg-gradient-to-r from-blue-500 to-green-500 text-white">
+        <h1 class="text-4xl font-bold mb-4">Welcome to AI-Driven E-Learning</h1>
+        <p class="max-w-2xl mx-auto mb-8">Empowering personalized education through AI, tailored just for you.</p>
+        <a href="#features" class="px-6 py-3 bg-white text-blue-500 rounded-full font-semibold hover:bg-gray-200">Learn More</a>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-16 bg-white">
+        <div class="container mx-auto px-8">
+            <h2 class="text-3xl font-bold text-center mb-10">Features</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="text-center p-8 shadow-lg rounded-lg bg-blue-100">
+                    <h3 class="text-xl font-semibold mb-4">Personalized Learning</h3>
+                    <p>Experience tailored content recommendations and learning paths based on your performance and needs.</p>
+                </div>
+                <div class="text-center p-8 shadow-lg rounded-lg bg-green-100">
+                    <h3 class="text-xl font-semibold mb-4">Intelligent Tutoring</h3>
+                    <p>Get real-time feedback and adaptive assistance through AI-powered tutoring features.</p>
+                </div>
+                <div class="text-center p-8 shadow-lg rounded-lg bg-yellow-100">
+                    <h3 class="text-xl font-semibold mb-4">Advanced Analytics</h3>
+                    <p>Track progress, analyze performance, and receive insights to enhance your learning journey.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="text-center py-16 bg-gray-200">
+        <h2 class="text-3xl font-bold mb-4">Join Our Community</h2>
+        <p class="max-w-lg mx-auto mb-8">Embrace the future of learning with our AI-integrated e-learning platform. Sign up today to unlock your potential!</p>
+        <a href="{% url 'login' %}" class="px-6 py-3 bg-blue-500 text-white rounded-full font-semibold hover:bg-blue-600">Get Started</a>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-4 bg-gray-800 text-center text-white">
+        <p>&copy; 2024 AI-Driven E-Learning. All rights reserved.</p>
+    </footer>
+</body>
+{% endblock %}

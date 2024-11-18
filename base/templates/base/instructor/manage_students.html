@@ -1,0 +1,53 @@
+{% extends "base/base.html" %}
+
+{% block title %}Manage Students{% endblock %}
+
+{% block content %}
+<div class="container mx-auto p-6">
+  <h1 class="text-3xl font-bold text-gray-800 mb-8">Manage Students - {{ course.name }}</h1>
+
+  <div class="flex flex-wrap -mx-4">
+    <!-- Enroll Student Section -->
+    <div class="w-full md:w-1/2 px-4 mb-6">
+      <h2 class="text-2xl font-semibold text-gray-800 mb-4">Enroll Student</h2>
+      <form method="post" class="bg-white p-6 rounded-lg shadow-lg">
+        {% csrf_token %}
+        <input type="hidden" name="action" value="enroll">
+
+        <div class="mb-4">
+          <label for="username" class="block text-lg font-medium text-gray-700">Student Matric No</label>
+          <input type="text" name="username" class="form-control mt-2 p-3 w-full border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+        </div>
+
+        <button type="submit" class="w-full py-3 px-4 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 transition duration-300">
+          Enroll
+        </button>
+      </form>
+    </div>
+
+    <!-- Current Students Section -->
+    <div class="w-full md:w-1/2 px-4 mb-6">
+      <h2 class="text-2xl font-semibold text-gray-800 mb-4">Current Students</h2>
+      <div class="bg-white p-6 rounded-lg shadow-lg">
+        <ul class="space-y-4">
+          {% for student in students %}
+          <li class="flex justify-between items-center p-4 bg-gray-100 rounded-lg shadow-sm">
+            <span class="text-lg font-medium text-gray-800">{{ student.user.username }}</span>
+            <form method="post" class="inline">
+              {% csrf_token %}
+              <input type="hidden" name="action" value="unenroll">
+              <input type="hidden" name="student_id" value="{{ student.form_number }}">
+              <button type="submit" class="px-4 py-2 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition duration-300">
+                Unenroll
+              </button>
+            </form>
+          </li>
+          {% empty %}
+          <li class="text-gray-600">No students enrolled yet.</li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

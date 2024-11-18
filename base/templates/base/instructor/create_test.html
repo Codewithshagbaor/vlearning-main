@@ -1,0 +1,54 @@
+{% extends 'base/base.html' %}
+{% block title %}Create Test{% endblock %}
+
+{% block content %}
+{% load static %}
+
+<div class="max-w-2xl mx-auto p-8 bg-white rounded-lg shadow-md mt-8">
+    <!-- Page Title -->
+    <h2 class="text-2xl font-semibold text-blue-700 mb-6">Create Test</h2>
+    <hr class="mb-6">
+
+    <!-- Form -->
+    <form method="POST" class="space-y-6">
+        {% csrf_token %}
+
+        <!-- Test Name -->
+        <div>
+            <label for="name" class="block text-gray-700 font-semibold mb-2">Test Name</label>
+            <input type="text" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500" 
+                   id="name" name="name" required>
+        </div>
+
+        <!-- Time -->
+        <div>
+            <label for="time" class="block text-gray-700 font-semibold mb-2">Time (minutes)</label>
+            <input type="number" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
+                   id="time" name="time" required>
+        </div>
+
+        <!-- Number of Questions -->
+        <div>
+            <label for="number_of_questions" class="block text-gray-700 font-semibold mb-2">Number of Questions</label>
+            <input type="number" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500" 
+                   id="number_of_questions" name="number_of_questions" required>
+        </div>
+
+        <!-- Score to Pass -->
+        <div>
+            <label for="required_score_to_pass" class="block text-gray-700 font-semibold mb-2">Score to Pass</label>
+            <input type="number" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500" 
+                   id="required_score_to_pass" name="required_score_to_pass" required>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="text-center">
+            <button type="submit" 
+                    class="w-full px-6 py-2 bg-blue-600 text-white font-semibold rounded hover:bg-blue-700 focus:outline-none">
+                Create Test
+            </button>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends "base/base.html" %}
+{% block title %}Complaint Lists{% endblock %}
+
+{% block content %}
+<div class="container mx-auto p-6">
+  <h1 class="text-3xl font-semibold mb-6">Complaints</h1>
+  <table class="min-w-full table-auto bg-white shadow-lg rounded-lg overflow-hidden">
+    <thead>
+      <tr class="bg-blue-600 text-white">
+        <th class="px-6 py-4 text-left">Student Name</th>
+        <th class="px-6 py-4 text-left">Course</th>
+        <th class="px-6 py-4 text-left">Complaint</th>
+        <th class="px-6 py-4 text-left">Date Filed</th>
+        <th class="px-6 py-4 text-left">Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for complaint in complaints %}
+        <tr class="hover:bg-gray-100">
+          <td class="px-6 py-4">{{ complaint.student.user.username }}</td>
+          <td class="px-6 py-4">{{ complaint.course.name }}</td>
+          <td class="px-6 py-4">{{ complaint.message }}</td>
+          <td class="px-6 py-4">{{ complaint.date_filed }}</td>
+          <td class="px-6 py-4">
+            <form method="post" action="{% url 'delete_complaints_admin' complaint_id=complaint.id %}">
+              {% csrf_token %}
+              <button type="submit" class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition duration-300">
+                Delete
+              </button>
+            </form>
+          </td>
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="5" class="px-6 py-4 text-center text-gray-500">No complaints yet.</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}
